@@ -1,0 +1,75 @@
+Classfile /C:/d/ain-prog/aktuell/Teil-4-Klassen/src/javap/Beispiel.class
+  Last modified 23.04.2018; size 364 bytes
+  MD5 checksum a3c120efbb87247ae8a073be9bc3f352
+  Compiled from "Beispiel.java"
+public final class javap.Beispiel
+  SourceFile: "Beispiel.java"
+  minor version: 0
+  major version: 52
+  flags: ACC_PUBLIC, ACC_FINAL, ACC_SUPER
+Constant pool:
+   #1 = Methodref          #4.#15    // java/lang/Object."<init>":()V
+   #2 = Methodref          #3.#16    // javap/Beispiel.add:(II)I
+   #3 = Class              #17       // javap/Beispiel
+   #4 = Class              #18       // java/lang/Object
+   #5 = Utf8               <init>
+   #6 = Utf8               ()V
+   #7 = Utf8               Code
+   #8 = Utf8               LineNumberTable
+   #9 = Utf8               add
+  #10 = Utf8               (II)I
+  #11 = Utf8               main
+  #12 = Utf8               ([Ljava/lang/String;)V
+  #13 = Utf8               SourceFile
+  #14 = Utf8               Beispiel.java
+  #15 = NameAndType        #5:#6     // "<init>":()V
+  #16 = NameAndType        #9:#10    // add:(II)I
+  #17 = Utf8               javap/Beispiel
+  #18 = Utf8               java/lang/Object
+{
+  private javap.Beispiel();
+    descriptor: ()V
+    flags: ACC_PRIVATE
+    Code:
+    stack=1, locals=1, args_size=1
+       0: aload_0       
+       1: invokespecial #1    // Method java/lang/Object."<init>":()V
+       4: return        
+    LineNumberTable:
+      line 4: 0
+
+  private static int add(int, int);
+    descriptor: (II)I
+    flags: ACC_PRIVATE, ACC_STATIC
+    Code:
+    stack=2, locals=3, args_size=2
+       0: iload_0       
+       1: iload_1       
+       2: iadd          
+       3: istore_2      
+       4: iload_2       
+       5: ireturn       
+    LineNumberTable:
+      line 7: 0
+      line 8: 4
+
+  public static void main(java.lang.String[]);
+    descriptor: ([Ljava/lang/String;)V
+    flags: ACC_PUBLIC, ACC_STATIC
+    Code:
+    stack=2, locals=4, args_size=1
+       0: bipush        123
+       2: istore_1      
+       3: sipush        456
+       6: istore_2      
+       7: iload_1       
+       8: iload_2       
+       9: invokestatic  #2    // Method add:(II)I
+      12: istore_3      
+      13: return        
+    LineNumberTable:
+      line 12: 0
+      line 13: 3
+      line 14: 7
+      line 15: 13
+}

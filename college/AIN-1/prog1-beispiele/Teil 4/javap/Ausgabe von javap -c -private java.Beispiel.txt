@@ -1,0 +1,29 @@
+Compiled from "Beispiel.java"
+public final class javap.Beispiel {
+  private javap.Beispiel();
+  Code:
+     0: aload_0       
+     1: invokespecial #1    // Method java/lang/Object."<init>":()V
+     4: return        
+
+  private static int add(int, int);
+  Code:
+     0: iload_0       
+     1: iload_1       
+     2: iadd          
+     3: istore_2      
+     4: iload_2       
+     5: ireturn       
+
+  public static void main(java.lang.String[]);
+  Code:
+     0: bipush        123
+     2: istore_1      
+     3: sipush        456
+     6: istore_2      
+     7: iload_1       
+     8: iload_2       
+     9: invokestatic  #2    // Method add:(II)I
+    12: istore_3      
+    13: return        
+}

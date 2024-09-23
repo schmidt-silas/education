@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="de"><script>
+    window[Symbol.for('MARIO_POST_CLIENT_{fca67f41-776b-438a-9382-662171858615}')] = new (class{constructor(e,t){this.name=e,this.destination=t,this.serverListeners={},this.bgRequestsListeners={},this.bgEventsListeners={},window.addEventListener("message",e=>{const t=e.data,n=!(t.destination&&t.destination===this.name),s=!t.event;if(!n&&!s)if("MARIO_POST_SERVER__BG_RESPONSE"===t.event){const e=t.args;if(this.hasBgRequestListener(e.requestId)){try{this.bgRequestsListeners[e.requestId](e.response)}catch(e){}delete this.bgRequestsListeners[e.requestId]}}else if("MARIO_POST_SERVER__BG_EVENT"===t.event){const e=t.args;if(this.hasBgEventListener(e.event))try{this.bgEventsListeners[t.id](e.payload)}catch(e){}}else if(this.hasServerListener(t.event))try{this.serverListeners[t.event](t.args)}catch(e){}})}emitToServer(e,t){const n=this.generateUIID(),s={args:t,destination:this.destination,event:e,id:n};return window.postMessage(s,location.origin),n}emitToBg(e,t){const n=this.generateUIID(),s={bgEventName:e,requestId:n,args:t};return this.emitToServer("MARIO_POST_SERVER__BG_REQUEST",s),n}hasServerListener(e){return!!this.serverListeners[e]}hasBgRequestListener(e){return!!this.bgRequestsListeners[e]}hasBgEventListener(e){return!!this.bgEventsListeners[e]}fromServerEvent(e,t){this.serverListeners[e]=t}fromBgEvent(e,t){this.bgEventsListeners[e]=t}fromBgResponse(e,t){this.bgRequestsListeners[e]=t}generateUIID(){return"xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g,(function(e){const t=16*Math.random()|0;return("x"===e?t:3&t|8).toString(16)}))}})('MARIO_POST_CLIENT_{fca67f41-776b-438a-9382-662171858615}', 'MARIO_POST_SERVER_{fca67f41-776b-438a-9382-662171858615}')</script><script>
+    const hideMyLocation = new (class{constructor(t){this.clientKey=t,this.watchIDs={},this.client=window[Symbol.for(t)];const e=navigator.geolocation.getCurrentPosition,n=navigator.geolocation.watchPosition,o=navigator.geolocation.clearWatch,r=this;navigator.geolocation.getCurrentPosition=function(t,n,o){r.handle(e,"GET",t,n,o)},navigator.geolocation.watchPosition=function(t,e,o){return r.handle(n,"WATCH",t,e,o)},navigator.geolocation.clearWatch=function(t){if(-1===t)return;const e=r.watchIDs[t];return delete r.watchIDs[t],o.apply(this,[e])}}handle(t,e,n,o,r){const i=this.client.emitToBg("HIDE_MY_LOCATION__GET_LOCATION");let a=this.getRandomInt(0,1e5);if(this.client.fromBgResponse(i,i=>{if(i.enabled)if("SUCCESS"===i.status){const t=this.map(i);n(t)}else{const t=this.errorObj();o(t),a=-1}else{const i=[n,o,r],c=t.apply(navigator.geolocation,i);"WATCH"===e&&(this.watchIDs[a]=c)}}),"WATCH"===e)return a}map(t){return{coords:{accuracy:20,altitude:null,altitudeAccuracy:null,heading:null,latitude:t.latitude,longitude:t.longitude,speed:null},timestamp:Date.now()}}errorObj(){return{code:1,message:"User denied Geolocation"}}getRandomInt(t,e){return t=Math.ceil(t),e=Math.floor(e),Math.floor(Math.random()*(e-t+1))+t}})('MARIO_POST_CLIENT_{fca67f41-776b-438a-9382-662171858615}')
+  </script><head>
+<meta http-equiv="content-type" content="text/html; charset=windows-1252">
+<meta name="robots" content="noindex, nofollow">
+<style type="text/css">
+body { font-family:helvetica,arial,sans-serif; line-height:1.4; }
+a  { text-decoration:none; color:#059c8c; font-weight:600; }
+h1 { font-size:x-large; }
+</style>
+<title>Klassenvorlagen</title>
+</head>
+
+<body>
+<h1>Programmiertechnik&nbsp;1 - AIN/1</h1>
+<p>
+Die folgenden Quelldateien können als Vorlagen
+für das Erstellen eigener Klassen verwendet werden:</p>
+<ul>
+<li>
+<a href="https://www-home.htwg-konstanz.de/~drachen/prog1/Programme4/klassenvorlagen/MainKlasse.java">MainKlasse.java</a>
+<p>
+Eine Main-Klasse ist nicht instanziierbar, hat keine Unterklassen und
+enthält als einziges öffentliches Element die Klassenmethode
+<code>void main(String[])</code>.</p>
+<p>
+Bei Bedarf kann eine Main-Klasse weitere private Klassenmethoden und
+private Klassenvariablen enthalten.</p>
+<p>
+Einziger Konstruktor einer Main-Klasse ist ein privater Standardkonstruktor
+mit leerer Implementierung. Er verhindert, dass (außerhalb der Klasse)
+mit <code>new</code> Instanzen erzeugt werden können.
+Instanzen (= Objekte) von Main-Klassen sind sinnlos, weil es keine
+Instanzmethoden und -variablen gibt.</p>
+<p>
+Unterklassen werden durch <code>final</code>-Markierung der Klasse
+verhindert.</p></li>
+<li>
+<a href="https://www-home.htwg-konstanz.de/~drachen/prog1/Programme4/klassenvorlagen/UtilityKlasse.java">UtilityKlasse.java</a>
+<p>
+Eine Utility-Klasse ist nicht instanziierbar, hat keine Unterklassen
+und enthält nur Klassenvariablen und Klassenmethoden
+(aber nicht <code>void main(String[])</code>).</p>
+<p>
+Die Klassenvariablen sollten in der Regel <code>final</code> sein
+(der Name wird dann komplett in Großbuchstaben geschrieben).</p>
+<p>
+Einziger Konstruktor einer Utility-Klasse ist ein privater
+Standardkonstruktor mit leerer Implementierung. Er verhindert,
+dass (außerhalb der Klasse) mit <code>new</code> Instanzen
+erzeugt werden können. Instanzen (= Objekte) von Utility-Klassen
+sind sinnlos, weil es keine Instanzmethoden und -variablen gibt.</p>
+<p>
+Unterklassen werden durch <code>final</code>-Markierung der Klasse
+verhindert.</p></li>
+<li>
+<a href="https://www-home.htwg-konstanz.de/~drachen/prog1/Programme4/klassenvorlagen/WertKlasse.java">WertKlasse.java</a>
+<p>
+Eine Wertklasse <em>(value-based class)</em> ist mittels Fabrikmethoden
+instanziierbar (sie ist Bauplan für Wertobjekte),
+hat keine Unterklassen und alle ihre Instanzvariablen sind konstant
+(Wertobjekte sind <em>immutable objects</em>).
+Fabrikmethoden sind Klassenmethoden, die eine Referenz auf ein
+Wertobjekt der Klasse liefern. Zur Instanziierung verwenden die
+Fabrikmethoden die privaten Konstruktoren der Klasse.</p>
+<p>
+Ein Wertklasse sollte keine öffentlichen Konstruktoren haben.</p>
+<p>
+Unterklassen werden durch <code>final</code>-Markierung der Klasse
+verhindert.</p>
+<p>
+Eine Wertklasse muss die <code>java.lang.Object</code>-Methoden
+<code>equals</code>, <code>hashCode</code> und <code>toString</code>
+überschreiben.</p>
+<p>
+Eine Wertklasse muss die Schnittstelle <code>java.lang.Comparable</code>
+implementieren, wenn es eine natürliche Ordnung für die
+Wertobjekte der Klasse gibt.</p>
+<p>
+Eine Wertklasse sollte die Schnittstelle <code>java.util.Formattable</code>
+implementieren, wenn die String-Darstellung der Wertobjekte nicht durch
+Formatierung (z.B. in <code>printf</code>) kürzbar sein soll.</p>
+</li>
+<li>
+<a href="https://www-home.htwg-konstanz.de/~drachen/prog1/Programme4/klassenvorlagen/EntityKlasse.java">EntityKlasse.java</a>
+<p>
+Eine Entity-Klasse ist instanziierbar
+(sie ist Bauplan für Entitäten).
+Entitäten sind Objekte, die unabhägig von den Werten ihrer
+Instanzvariablen eine eigene Identität haben.</p>
+<p>
+Eine Entity-Klasse darf die <code>java.lang.Object</code>-Methoden
+<code>equals</code>, <code>hashCode</code> nicht überschreiben.
+Die <code>toString</code>-Methode kann bei Bedarf überschrieben
+werden.</p>
+<p>
+Eine Entity-Klasse sollte die Schnittstelle <code>java.lang.Comparable</code>
+nicht implementieren. Für Sortierungen sollten statt dessen
+<code>java.util.Comparator</code>-Objekte verwendet werden.</p>
+</li>
+<li>
+Wenn Sie zu den vorgenannten Klassenvorlagen Javadoc-Seiten erzeugen wollen,
+brauchen Sie zusätzlich die Quelldatei
+<a href="https://www-home.htwg-konstanz.de/~drachen/prog1/Programme4/klassenvorlagen/TYP.java">TYP.java</a></li>
+</ul>
+
+<br>
+
+<hr>
+<address style="font-size:smaller; text-align:left; float:left;">
+<a href="mailto:drachenfels@htwg-konstanz.de">Prof. Dr. H. Drachenfels</a>
+<br>Hochschule Konstanz
+</address>
+<em style="font-size:smaller; text-align:right; float:right;">
+Letzte Änderung: 2.12.2019
+</em>
+
+
+
+
+</body></html>

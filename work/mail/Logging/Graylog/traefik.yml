@@ -1,0 +1,22 @@
+enable: true
+http:
+  routers:
+    graylog-komm-one-dev:
+      entrypoints: http
+      rule: Host(`graylog.komm-one.dev`)
+      middlewares: graylog-komm-one-dev-https-redirect
+      service: graylog-komm-one-dev
+    graylog-komm-one-dev-secure:
+      entrypoints: https
+      rule: Host(`graylog.komm-one.dev`)
+      tls: true
+      service: graylog-komm-one-dev
+  middlewares:
+    graylog-komm-one-dev-https-redirect:
+      redirectscheme:
+        scheme: https
+  services:
+    graylog-komm-one-dev:
+      loadbalancer:
+        servers:
+          - url: 'http://172.23.0.230:9000/'

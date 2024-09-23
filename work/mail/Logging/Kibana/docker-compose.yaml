@@ -1,0 +1,56 @@
+services:
+  elasticsearch:
+    container_name: elasticsearch
+    restart: unless-stopped
+    networks:
+      - elastic
+      - proxy
+    ports:
+      - 9200:9200
+    stdin_open: true
+    tty: true
+    deploy:
+      resources:
+        limits:
+          memory: 2GB
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.15.1
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.${SUB_DOMAIN_2}.entrypoints=http
+      - traefik.http.routers.${SUB_DOMAIN_2}.rule=Host(`${SUB_DOMAIN_2}.${DOMAIN}`)
+      - traefik.http.middlewares.${SUB_DOMAIN_2}-https-redirect.redirectscheme.scheme=https
+      - traefik.http.routers.${SUB_DOMAIN_2}.middlewares=${SUB_DOMAIN_2}-https-redirect
+      - traefik.http.routers.${SUB_DOMAIN_2}-secure.entrypoints=https
+      - traefik.http.routers.${SUB_DOMAIN_2}-secure.rule=Host(`${SUB_DOMAIN_2}.${DOMAIN}`)
+      - traefik.http.routers.${SUB_DOMAIN_2}-secure.tls=true
+      - traefik.http.routers.${SUB_DOMAIN_2}-secure.service=${SUB_DOMAIN}
+      - traefik.http.services.${SUB_DOMAIN_2}.loadbalancer.server.port=9200
+      - traefik.docker.network=proxy
+  
+  kibana:
+    container_name: kibana
+    restart: unless-stopped
+    networks:
+      - elastic
+      - proxy
+    ports:
+      - 5601:5601
+      - 8080:8080
+    image: docker.elastic.co/kibana/kibana:8.15.1
+    labels:
+      - traefik.enable=true
+      - traefik.http.routers.${SUB_DOMAIN}.entrypoints=http
+      - traefik.http.routers.${SUB_DOMAIN}.rule=Host(`${SUB_DOMAIN}.${DOMAIN}`)
+      - traefik.http.middlewares.${SUB_DOMAIN}-https-redirect.redirectscheme.scheme=https
+      - traefik.http.routers.${SUB_DOMAIN}.middlewares=${SUB_DOMAIN}-https-redirect
+      - traefik.http.routers.${SUB_DOMAIN}-secure.entrypoints=https
+      - traefik.http.routers.${SUB_DOMAIN}-secure.rule=Host(`${SUB_DOMAIN}.${DOMAIN}`)
+      - traefik.http.routers.${SUB_DOMAIN}-secure.tls=true
+      - traefik.http.routers.${SUB_DOMAIN}-secure.service=${SUB_DOMAIN}
+      - traefik.http.services.${SUB_DOMAIN}.loadbalancer.server.port=5601
+      - traefik.docker.network=proxy
+networks:
+  elastic:
+    external: true
+  proxy:
+    external: true
