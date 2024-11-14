@@ -1,0 +1,10 @@
+Klasse: Akku
+------------------------------
+- Kapazität {>= 0}
+- Gewicht
+- GK-Ratio
+- Ladezustand init = 40
+------------------------------
++ getKapazität
++ getLadezustand
++ setLadezustand {>= 0 && <= 100}

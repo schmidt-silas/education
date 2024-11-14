@@ -3,10 +3,10 @@ class fahrzeug():
         self.maxSpeed = par1
         self.maxPower = par2
     def getPower(self):
-        print("Maximale Leistung ist: ", self.maxPower)
+        print("Maximale Leistung ist:", self.maxPower, "Pferdle stark.")
 
-autole=fahrzeug(240, 120)
-autole.getPower()
+# autole=fahrzeug(240, 120)
+# autole.getPower()
 
 class auto(fahrzeug):
     def __init__(self, par1, par2, par3):
@@ -15,9 +15,9 @@ class auto(fahrzeug):
     def getMarke(self):
         return self.marke
     def getmaxSpeed(self):
-        print("Mei Audole ischd :", self.maxSpeed, "Sache schnell!")
+        print("Mei Audole ischd:", self.maxSpeed, "Sache schnell!")
 
 meinGolfi = auto (150, 90, 'VW') # Instanz der abgeleiteten Klasse
-print(meinGolfi.getMarke()) # Zugriff auf Methode der abg. Klasse
+print("Marke ischd diese:", meinGolfi.getMarke()) # Zugriff auf Methode der abg. Klasse
 meinGolfi.getPower() # Zugriff auf Methode der Basisklasse
 meinGolfi.getmaxSpeed() # Zugriff auf Methode der abg. Klasse
